@@ -7,8 +7,11 @@ import { HotelPK } from "../../../common/tables/HotelPK";
 import { Room } from "../../../common/tables/Room";
 import { Guest } from "../../../common/tables/Guest";
 
+import {Animal } from  "../../../common/tables/Animal"
+
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
+
 
 @injectable()
 export class DatabaseController {
@@ -19,22 +22,26 @@ export class DatabaseController {
   public get router(): Router {
     const router: Router = Router();
 
-    // ======= HOTEL ROUTES =======
-    // ex http://localhost:3000/database/hotel?hotelNb=3&name=LeGrandHotel&city=laval
-    router.get("/hotels", (req: Request, res: Response, _: NextFunction) => {
-      var hotelNb = req.params.hotelNb ? req.params.hotelNb : "";
-      var hotelName = req.params.name ? req.params.name : "";
-      var hotelCity = req.params.city ? req.params.city : "";
+    // animals
 
+    router.get("/animals", (req: Request, res: Response, _: NextFunction) => {
       this.databaseService
-        .filterHotels(hotelNb, hotelName, hotelCity)
+        .filterAnimals()
         .then((result: pg.QueryResult) => {
-          const hotels: Hotel[] = result.rows.map((hotel: Hotel) => ({
-            hotelnb: hotel.hotelnb,
-            name: hotel.name,
-            city: hotel.city,
+          const animals: Animal[] = result.rows.map((animal: Animal) => ({
+            noanimal : animal.noanimal,
+            noclinique : animal.noclinique,
+            noproprietaire : animal.noproprietaire,
+            nom :animal.nom,
+            typeanimal : animal.typeanimal,
+            espece :animal.espece,
+            taille :animal.taille,
+            poids :animal.poids,
+            description:animal.description ,
+            dateinscription :animal.description,
+            etatactuel :animal.etatactuel,
           }));
-          res.json(hotels);
+          res.json(animals);
         })
         .catch((e: Error) => {
           console.error(e.stack);

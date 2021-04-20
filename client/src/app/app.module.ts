@@ -9,20 +9,22 @@ import { CommunicationService } from "./communication.service";
 import { GuestComponent } from "./guest/guest.component";
 import { HotelComponent } from "./hotel/hotel.component";
 import { RoomComponent } from "./room/room.component";
+import { AnimalComponent } from './animal/animal.component';
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     RoomComponent,
     HotelComponent,
     GuestComponent,
-  ],
+    AnimalComponent
+   ],
   imports: [
     CommonModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [CommunicationService],
   bootstrap: [AppComponent],

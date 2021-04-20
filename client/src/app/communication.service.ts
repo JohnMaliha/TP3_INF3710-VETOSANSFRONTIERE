@@ -3,7 +3,8 @@ import { Injectable } from "@angular/core";
 // tslint:disable-next-line:ordered-imports
 import { of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Hotel } from "../../../common/tables/Hotel";
+import { Animal } from "../../../common/tables/Animal";
+import {Hotel} from "../../../common/tables/Hotel"
 import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
 import { Guest } from "../../../common/tables/Guest";
@@ -23,12 +24,40 @@ export class CommunicationService {
     this._listners.next(filterBy);
   }
 
+  
+
+  public getAnimals(): Observable<Animal[]> {
+    return this.http
+      .get<Animal[]>(this.BASE_URL + "/animals")
+      .pipe(catchError(this.handleError<Animal[]>("getAnimal")));
+  }
+
+
+  public updateAnimal(animal: Animal): Observable<number> {
+    return this.http
+      .put<number>(this.BASE_URL + "/animals/update", animal)
+      .pipe(catchError(this.handleError<number>("updateAnimal")));
+  }
+
+
+  private handleError<T>(
+    request: string,
+    result?: T
+  ): (error: Error) => Observable<T> {
+    return (error: Error): Observable<T> => {
+      return of(result as T);
+    };
+  }
+
+
+
+
+  /* to delete after */ 
   public getHotels(): Observable<Hotel[]> {
     return this.http
       .get<Hotel[]>(this.BASE_URL + "/hotels")
       .pipe(catchError(this.handleError<Hotel[]>("getHotels")));
   }
-
   public insertHotel(hotel: Hotel): Observable<number> {
     return this.http
       .post<number>(this.BASE_URL + "/hotels/insert", hotel)
@@ -83,12 +112,5 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<Guest[]>("getGuests")));
   }
 
-  private handleError<T>(
-    request: string,
-    result?: T
-  ): (error: Error) => Observable<T> {
-    return (error: Error): Observable<T> => {
-      return of(result as T);
-    };
-  }
+
 }

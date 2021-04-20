@@ -24,12 +24,26 @@ export class DatabaseService {
   public async getAllFromTable(tableName: string): Promise<pg.QueryResult> {
     
     const client = await this.pool.connect();
-    const res = await client.query(`SELECT * FROM HOTELDB.${tableName};`);
+    const res = await client.query(`SELECT * FROM TP3VetoSansFrontieresDB.${tableName};`);
     client.release()
     return res;
   }
 
+  // get animal
+  public async filterAnimals(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Animal;";
+    const res = await client.query(queryText);
+    client.release();
+    console.log("animal",res);
+    return res;
+  }
 
+
+
+
+
+  // TO DELETE AFTER
   // ======= HOTEL =======
   public async createHotel(hotel: Hotel): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
@@ -41,25 +55,6 @@ export class DatabaseService {
     const queryText: string = `INSERT INTO HOTELDB.Hotel VALUES($1, $2, $3);`;
 
     const res = await client.query(queryText, values);
-    client.release()
-    return res;
-  }
-
-
-  // get hotels that correspond to certain caracteristics
-  public async filterHotels(hotelNb: string, hotelName: string, city: string): Promise<pg.QueryResult> {
-    const client = await this.pool.connect();
-
-    const searchTerms: string[] = [];
-    if (hotelNb.length > 0) searchTerms.push(`hotelNb = '${hotelNb}'`);
-    if (hotelName.length > 0) searchTerms.push(`name = '${hotelName}'`);
-    if (city.length > 0) searchTerms.push(`city = '${city}'`);
-
-    let queryText = "SELECT * FROM HOTELDB.Hotel";
-    if (searchTerms.length > 0) queryText += " WHERE " + searchTerms.join(" AND ");
-    queryText += ";";
-
-    const res = await client.query(queryText);
     client.release()
     return res;
   }
