@@ -26,6 +26,12 @@
     padding: 10px;
 }
 
+.contentSelect {
+    width: 30%;
+    margin-bottom: 25px;
+}
+
+
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #9A75F033;
 }

@@ -1,6 +1,6 @@
 export interface Animal{
     noanimal :number;
-    noclinique :String;
+    noclinique :string;
     noproprietaire :number;
     nom :string;
     typeanimal :string;

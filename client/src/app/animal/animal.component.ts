@@ -31,6 +31,13 @@ export class AnimalComponent implements OnInit {
   public cliniqueTable : Clinique[] =[];
 
   public duplicateError: boolean = false;
+  public noproprio : number;
+  public cliniqueno : string;
+
+  // public selectedAnimal: Animal = {
+  //   noanimal: 0,
+  //   nom: "placeholderHotel",
+  // };
 
   constructor(public communicationService : CommunicationService) { }
 
@@ -38,6 +45,12 @@ export class AnimalComponent implements OnInit {
     this.getAnimal();
     this.getProprietaire();
     this.getClinique();
+  }
+
+  public updateSelectedAnimalName(hotelID: any) {
+   // this.selectedHotel = this.hotelPKs[hotelID];
+    this.getAnimal();
+    this.refresh();
   }
 
   // trouver tt les proprietaires
@@ -66,8 +79,10 @@ export class AnimalComponent implements OnInit {
   public insertAnimals(): void {
     const animal: any = {
       noanimal : this.newanimalnb.nativeElement.innerText as number,
-      noclinique : this.newClinique.nativeElement.innerText as number,
-      noproprietaire :this.newProprietaire.nativeElement.innerText as number,
+      noclinique : this.cliniqueno,
+     //noclinique : this.newClinique.nativeElement.innerText as number,
+      // noproprietaire :this.newProprietaire.nativeElement.innerText as number,
+      noproprietaire : this.noproprio,
       nom :this.newNom.nativeElement.innerText,
       typeanimal : this.newtypeanimal.nativeElement.innerText,
       espece : this.newtypeespece.nativeElement.innerText,
@@ -77,7 +92,7 @@ export class AnimalComponent implements OnInit {
       dateinscription :this.newdateinscription.nativeElement.innerText,
       etatactuel :this.newetatactuel.nativeElement.innerText,
     };
-
+    console.log(animal);
     this.communicationService.insertAnimal(animal).subscribe((res: number) => {
       if (res > 0) {
         this.communicationService.filter("update");
@@ -91,18 +106,31 @@ export class AnimalComponent implements OnInit {
   public deleteAnimal(animaldel: number) {
     this.communicationService.deleteAnimal(animaldel).subscribe((res: any) => {
       this.refresh();
-      // console.log(res.body);
     });
   }
 
+  // returns the value of the selected value of the drop down list.
+  selectednoClinique(event:any):void{
+    const value = event.target.value;
+    console.log(value);
+    this.cliniqueno = value as string;
+  }
+
+  selectednoProprio(event:any):void{
+    const value = event.target.value;
+    console.log(value);
+    this.noproprio = value;
+  }
+
   // TO modify values in the tables.
-  public changeAnimalnoClinique(event:any,i:number){
-    const editField = event.target.textContent;
+  public changeAnimalnoCliniqueInput(event:any,i:number){
+    const editField = event.target.value;
     this.animalTable[i].noclinique = editField;
   }
 
-  public changeAnimalnoProprietaire(event:any,i:number){
-    const editField = event.target.textContent; // .value
+  public changeAnimalnoProprietaireInput(event:any,i:number){
+    const editField = event.target.value;
+    console.log(editField);
     this.animalTable[i].noproprietaire = editField;
   }
 
@@ -147,9 +175,12 @@ export class AnimalComponent implements OnInit {
 
   private refresh() {
     this.getAnimal();
+    this.getClinique();
+    this.getProprietaire();
     this.newanimalnb.nativeElement.innerText = "";
-    this.newClinique.nativeElement.innerText = "";
-    this.newProprietaire.nativeElement.innerText = "";
+    
+    //this.newClinique.nativeElement.innerText = "";
+    //this.newProprietaire.nativeElement.innerText = "";
 
     this.newNom.nativeElement.innerText = "";
     this.newtypeanimal.nativeElement.innerText = "";
@@ -166,7 +197,7 @@ export class AnimalComponent implements OnInit {
 
   public updateAnimal(i: number) {
     this.communicationService.updateAnimal(this.animalTable[i]).subscribe((res: any) => {
-      console.log("update",this.animalTable);
+      console.log("updateAnimal",this.animalTable);
       this.refresh();
     });
   }

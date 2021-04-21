@@ -10,11 +10,11 @@ import { FactureComponent } from "./facture/facture.component";
 
 const routes: Routes = [
   { path: "app", component: AppComponent },
+  { path: "animals", component: AnimalComponent },
+  { path: "factures", component: FactureComponent },
   { path: "rooms", component: RoomComponent },
   { path: "hotels", component: HotelComponent },
   { path: "guests", component: GuestComponent },
-  { path: "animals", component: AnimalComponent },
-  { path: "factures", component: FactureComponent },
 ];
 
 @NgModule({

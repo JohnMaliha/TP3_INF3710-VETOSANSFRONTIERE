@@ -50,7 +50,6 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<Animal[]>("getAnimal")));
   }
 
-
   public updateAnimal(animal: Animal): Observable<number> {
     return this.http
       .put<number>(this.BASE_URL + "/animals/update", animal)

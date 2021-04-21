@@ -3,6 +3,19 @@
 
   <div class="divider"></div>
 
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="animalSelect">nom de l'Animal</label>
+      </div>
+      <select class="custom-select">
+        <option *ngFor="let animals of animalTable;let i= index">{{ animals.nom }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
   <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
     <thead class="header">
       <th class="contentCell">noAnimal</th>
@@ -20,9 +33,22 @@
     </thead>
     <tbody>
       <tr *ngFor="let animal of animalTable; let i =index">
+
         <td class="contentCell">{{animal.noanimal}}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changeAnimalnoClinique($event, i)">{{animal.noclinique}}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changeAnimalnoProprietaire($event, i)">{{animal.noproprietaire}}</td>
+
+        <td class="contentCell" contenteditable="false" >
+          {{animal.noclinique}}
+          <select (blur)="this.changeAnimalnoCliniqueInput($event,i)"> 
+            <option *ngFor="let clinique of cliniqueTable; let i = index" > {{clinique.noclinique}}</option>
+          </select> 
+        </td>
+
+        <td class="contentCell" contenteditable="false" > 
+          {{animal.noproprietaire}}
+          <select (blur)="this.changeAnimalnoProprietaireInput($event,i)">
+            <option *ngFor="let proprio of proprietaireTable; let i = index" > {{proprio.noproprietaire}} </option>
+          </select> 
+        </td>
         
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalNom($event, i)">{{animal.nom}}</td>
         <td class="contentCell" contenteditable="true" (blur)="changeAnimalTypeAnimal($event, i)" >{{animal.typeanimal}}</td>
@@ -41,8 +67,19 @@
 
       <tr class="blank_row">
         <td class="contentCell" contenteditable="true" placeholder="Nouveau Animal" #newanimalnb></td>
-        <td class="contentCell" contenteditable="true" placeholder="Nouvelle Clinique" #newClinique></td>
-        <td class="contentCell" contenteditable="true" placeholder="Nouvelle proprietaire" #newProprietaire></td>
+
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle Clinique" #newClinique >
+          <select (blur)="selectednoClinique($event)">
+            <option *ngFor="let clinique of cliniqueTable; let i = index" > {{clinique.noclinique}} </option>
+          </select>
+        </td>
+
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle proprietaire" #newProprietaire>
+          <select (blur)="selectednoProprio($event)">
+            <option *ngFor="let proprio of proprietaireTable; let i = index" > {{proprio.noproprietaire}} </option>
+          </select>
+        </td>
+
         <td class="contentCell" contenteditable="true" placeholder="Nouveau nom" #newNom></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouveau typeanimal" #newtypeanimal></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouvelle espece" #newtypeespece></td>
