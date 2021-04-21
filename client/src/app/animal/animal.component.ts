@@ -2,6 +2,8 @@ import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Animal } from '../../../../common/tables/Animal';
+import { Proprietaire } from '../../../../common/tables/Proprietaire';
+import { Clinique } from '../../../../common/tables/Clinique';
 import { CommunicationService } from '../communication.service';
 
 @Component({
@@ -24,12 +26,34 @@ export class AnimalComponent implements OnInit {
 
 
   public animalTable : Animal[] = []; 
+
+  public proprietaireTable : Proprietaire[] =[];
+  public cliniqueTable : Clinique[] =[];
+
   public duplicateError: boolean = false;
 
   constructor(public communicationService : CommunicationService) { }
 
   ngOnInit() {
     this.getAnimal();
+    this.getProprietaire();
+    this.getClinique();
+  }
+
+  // trouver tt les proprietaires
+  public getProprietaire():void{
+    this.communicationService.getProprietaires().subscribe ((proprio:Proprietaire[])=>{
+      this.proprietaireTable = proprio;
+      console.log(this.proprietaireTable);
+    });
+  }
+
+  // trouver tt les Clinique
+  public getClinique():void{
+    this.communicationService.getCliniques().subscribe ((clinique:Clinique[])=>{
+      this.cliniqueTable = clinique;
+      console.log(this.cliniqueTable);
+    });
   }
 
   public getAnimal():void{
@@ -40,7 +64,6 @@ export class AnimalComponent implements OnInit {
   }
 
   public insertAnimals(): void {
-
     const animal: any = {
       noanimal : this.newanimalnb.nativeElement.innerText as number,
       noclinique : this.newClinique.nativeElement.innerText as number,
@@ -72,7 +95,6 @@ export class AnimalComponent implements OnInit {
     });
   }
 
-
   // TO modify values in the tables.
   public changeAnimalnoClinique(event:any,i:number){
     const editField = event.target.textContent;
@@ -80,7 +102,7 @@ export class AnimalComponent implements OnInit {
   }
 
   public changeAnimalnoProprietaire(event:any,i:number){
-    const editField = event.target.textContent;
+    const editField = event.target.textContent; // .value
     this.animalTable[i].noproprietaire = editField;
   }
 

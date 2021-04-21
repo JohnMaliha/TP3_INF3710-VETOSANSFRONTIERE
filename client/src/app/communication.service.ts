@@ -5,11 +5,13 @@ import { of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Animal } from "../../../common/tables/Animal";
 import {Facture} from "../../../common/tables/Facture"
+import {Proprietaire} from "../../../common/tables/Proprietaire"
 
 import {Hotel} from "../../../common/tables/Hotel"
 import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
 import { Guest } from "../../../common/tables/Guest";
+import { Clinique } from "../../../common/tables/Clinique";
 
 @Injectable()
 export class CommunicationService {
@@ -24,6 +26,20 @@ export class CommunicationService {
 
   public filter(filterBy: string): void {
     this._listners.next(filterBy);
+  }
+
+  // Proprietaire, for drop down list in animals.
+  public getProprietaires(): Observable<Proprietaire[]>{
+    return this.http
+      .get<Proprietaire[]>(this.BASE_URL + "/proprietaires")
+      .pipe(catchError(this.handleError<Proprietaire[]>("getProprietaire")));
+  }
+  
+   // Proprietaire, for drop down list in animals.
+   public getCliniques(): Observable<Clinique[]>{
+    return this.http
+      .get<Clinique[]>(this.BASE_URL + "/cliniques")
+      .pipe(catchError(this.handleError<Clinique[]>("getClinique")));
   }
 
   // Animals 
@@ -50,11 +66,11 @@ export class CommunicationService {
   }
 
   public deleteAnimal(animaltodelete: number): Observable<number> {
-    console.log(animaltodelete);
     return this.http
       .post<number>(this.BASE_URL + "/animals/delete/" + animaltodelete, {})
       .pipe(catchError(this.handleError<number>("deleteAnimal")));
   }
+
 
   // Facture
   public getFacture(): Observable<Facture[]> {

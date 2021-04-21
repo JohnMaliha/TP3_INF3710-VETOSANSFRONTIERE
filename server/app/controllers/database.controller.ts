@@ -7,7 +7,9 @@ import { HotelPK } from "../../../common/tables/HotelPK";
 import { Room } from "../../../common/tables/Room";
 import { Guest } from "../../../common/tables/Guest";
 
-import {Animal } from  "../../../common/tables/Animal"
+import {Animal } from  "../../../common/tables/Animal";
+import {Proprietaire} from "../../../common/tables/Proprietaire";
+import {Clinique} from "../../../common/tables/Clinique";
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
@@ -23,6 +25,44 @@ export class DatabaseController {
   public get router(): Router {
     const router: Router = Router();
 
+    // proprietaire
+    router.get("/proprietaires",(req:Request, res:Response,_:NextFunction) => {
+      this.databaseService
+      .filterOwners()
+      .then((result: pg.QueryResult) => {
+        const proprietaire: Proprietaire[] = result.rows.map((proprio: Proprietaire) => ({
+          noproprietaire :proprio.noproprietaire,
+          noclinique :proprio.noclinique,
+          nomproprietaire :proprio.nomproprietaire,
+          adresseproprio :proprio.adresseproprio,
+          notel :proprio.notel,
+        }));
+        res.json(proprietaire);
+      })
+      .catch((e: Error) => {
+        console.error(e.stack);
+      });
+  });
+
+     // clinique
+     router.get("/cliniques",(req:Request, res:Response,_:NextFunction) => {
+      this.databaseService
+      .filterClinics()
+      .then((result: pg.QueryResult) => {
+        const cliniques: Clinique[] = result.rows.map((clinique: Clinique) => ({
+          noclinique :clinique.noclinique,
+          adresseclinique :clinique.adresseclinique,
+          notel :clinique.notel,
+          notelecopieur : clinique.notelecopieur,
+          nomclinique :clinique.nomclinique,
+        }));
+        res.json(cliniques);
+      })
+      .catch((e: Error) => {
+        console.error(e.stack);
+      });
+    });
+    
     // animals
     router.get("/animals", (req: Request, res: Response, _: NextFunction) => {
       this.databaseService

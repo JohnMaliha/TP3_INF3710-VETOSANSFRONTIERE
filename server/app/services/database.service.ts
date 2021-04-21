@@ -31,6 +31,25 @@ export class DatabaseService {
     return res;
   }
 
+  // postgres sql query to return all elements from proprietaires
+  public async filterOwners() : Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let query = "SELECT * FROM TP3VetoSansFrontieresDB.Proprietaire;";
+    const res = await client.query(query);
+    client.release();
+    console.log(res);
+    return res;
+  }
+
+  // postgres sql query to return all elements from clinique
+  public async filterClinics() : Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let query = "SELECT * FROM TP3VetoSansFrontieresDB.Clinique;";
+    const res = await client.query(query);
+    client.release();
+    return res;
+  }
+
   // get animal
   public async filterAnimals(): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
