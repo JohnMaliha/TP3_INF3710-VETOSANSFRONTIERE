@@ -6,6 +6,7 @@ import { Hotel } from "../../../common/tables/Hotel";
 import { Gender, Guest } from "../../../common/tables/Guest";
 
 import { Animal } from "../../../common/tables/Animal";
+import { Facture } from "../../../common/tables/Facture";
 
 @injectable()
 export class DatabaseService {
@@ -109,6 +110,27 @@ export class DatabaseService {
     return res;
   }
 
+  public async createFacture(facture: Facture): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+
+    const queryText: string = `INSERT INTO TP3VetoSansFrontieresDB.Facture VALUES('${facture.noproprietaire}',
+    '${facture.noanimal}',
+    '${facture.noemploye}',
+    '${facture.datefacture}','${facture.listetraitement}','${facture.total}',
+    '${facture.modedepaiement}','${facture.paiementeffectuer}');`;
+
+    const res = await client.query(queryText);
+    client.release();
+    console.log(res);
+    return res;
+  }
+
+  public async deleteFacture(facture:Facture): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    const res = await client.query(`DELETE FROM TP3VetoSansFrontieresDB.Facture WHERE noproprietaire = ${facture.noproprietaire} AND noanimal = ${facture.noanimal} AND noemploye =${facture.noemploye} ;`);
+    client.release();
+    return res;
+  }
 
 
 

@@ -1,0 +1,32 @@
+<div id="traitement">
+  <h1>Traitement</h1>
+
+  <div class="divider"></div>
+
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" >noAnimal</label>
+      </div>
+      <select class="custom-select">
+        <option *ngFor="let animal of animalTable">{{ animal.noanimal }}</option>
+      </select>
+    </div>
+  </div>
+
+  <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
+    <thead class="header">
+      <th class="contentCell">noTraitement</th>
+      <th class="contentCell">descriptionTraitement</th>
+      <th class="contentCell">coutTraitement</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let traitement of traitementTable">
+        <td class="contentCell">{{ traitement.notraitement }}</td>
+        <td class="contentCell">{{ traitement.descriptiontraitement }}</td>
+        <td class="contentCell">{{ traitement.couttraitement }}</td>
+  
+      </tr>
+    </tbody>
+  </table>
+</div>

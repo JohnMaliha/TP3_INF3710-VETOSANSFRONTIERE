@@ -33,4 +33,46 @@ export class FactureComponent implements OnInit {
     });
   }
 
+
+  public insertFactures(): void {
+    const facture: any = {
+      noproprietaire :this.noproprietaire.nativeElement.innerText as number,
+      noanimal : this.noanimal.nativeElement.innerText as number,
+      noemploye :this.noemploye.nativeElement.innerText as number,
+      datefacture : this.datefacture.nativeElement.innerText,
+      listetraitement : this.listetraitement.nativeElement.innerText,
+      total :this.total.nativeElement.innerText,
+      modedepaiement :this.modedepaiement.nativeElement.innerText,
+      paiementeffectuer:this.paiementeffectuer.nativeElement.innerText ,
+    };
+    console.log(facture);
+    this.communicationService.insertFacture(facture).subscribe((res: number) => {
+      if (res > 0) {
+        this.communicationService.filter("update");
+        console.log('insertFacture',res);
+      }
+      this.refresh();
+      this.duplicateError = res === -1;
+    });
+  }
+
+  public deleteFacture(facturetodel: Facture) {
+    this.communicationService.deleteFacture(facturetodel).subscribe((res: any) => {
+      this.refresh();
+    });
+  }
+
+
+  private refresh() {
+    this.getFacture();
+    this.noproprietaire.nativeElement.innerText = "";
+    this.noanimal.nativeElement.innerText = "";
+    this.noemploye.nativeElement.innerText = "";
+    this.datefacture.nativeElement.innerText= "";
+    this.listetraitement.nativeElement.innerText= "";
+    this.total.nativeElement.innerText= "";
+    this.modedepaiement.nativeElement.innerText= "";
+    this.paiementeffectuer.nativeElement.innerText = "";
+  }
+
 }

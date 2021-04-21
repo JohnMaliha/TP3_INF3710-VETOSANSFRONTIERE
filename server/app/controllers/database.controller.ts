@@ -164,7 +164,7 @@ export class DatabaseController {
 
     // facture 
 
- router.get("/factures", (req: Request, res: Response, _: NextFunction) => {
+  router.get("/factures", (req: Request, res: Response, _: NextFunction) => {
       this.databaseService
         .filterFacture()
         .then((result: pg.QueryResult) => {
@@ -185,6 +185,80 @@ export class DatabaseController {
         });
     });
 
+    router.post(
+      "/factures/insert", async (req: Request, res: Response, _: NextFunction) => {
+        const facture: Facture = {
+          noproprietaire :req.body.noproprietaire,
+          noanimal : req.body.noanimal,
+          noemploye :req.body.noemploye,
+          datefacture : req.body.datefacture,
+          listetraitement : req.body.listetraitement,
+          total :req.body.total,
+          modedepaiement :req.body.modedepaiement,
+          paiementeffectuer:req.body.paiementeffectuer,
+        };
+
+        await this.databaseService
+          .createFacture(facture)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+            res.json(-1);
+          });
+      }
+    );
+
+    router.post(
+      "/factures/delete/:noproprietaire + noanimal + noemploye",
+      (req: Request, res: Response, _: NextFunction) => {
+        const facturedelete: Facture = {
+          noproprietaire:req.body.noproprietaire,noanimal:req.body.noanimal,
+          noemploye:req.body.noemploye,
+          datefacture : req.body.datefacture,
+          listetraitement : req.body.listetraitement,
+          total :req.body.total,
+          modedepaiement :req.body.modedepaiement,
+          paiementeffectuer:req.body.paiementeffectuer};
+        this.databaseService
+          .deleteFacture(facturedelete)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+          });
+      }
+    );
+
+    // router.put(
+    //   "/factures/update",
+    //   (req: Request, res: Response, _: NextFunction) => {
+    //     const animal: Animal = {
+    //         noanimal : req.body.noanimal ? req.body.noanimal : "",
+    //         noclinique : req.body.noclinique ? req.body.noclinique: "",
+    //         noproprietaire : req.body.noproprietaire ? req.body.noproprietaire: "",
+    //         nom :req.body.nom ? req.body.nom: "",
+    //         typeanimal : req.body.typeanimal ? req.body.typeanimal:  "",
+    //         espece :req.body.espece ?  req.body.espece : "",
+    //         taille :req.body.taille ? req.body.taille: "",
+    //         poids :req.body.poids ? req.body.poids : "",
+    //         description:req.body.description ? req.body.description: "" ,
+    //         dateinscription :req.body.dateinscription ? req.body.dateinscription : "",
+    //         etatactuel :req.body.etatactuel ? req.body.etatactuel : "",
+    //     };
+
+    //     this.databaseService
+    //       .updateAnimal(animal)
+    //       .then((result: pg.QueryResult) => {
+    //         res.json(result.rowCount);
+    //       })
+    //       .catch((e: Error) => {
+    //         console.error(e.stack);
+    //       });
+    //   }
+    // );
 
 
 

@@ -78,6 +78,21 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<Facture[]>("getFacture")));
   }
 
+   // inserts animals from client into db
+   public insertFacture(facture: Facture): Observable<number> {
+    console.log('communication',facture);
+    return this.http
+      .post<number>(this.BASE_URL + "/factures/insert", facture)
+      .pipe(catchError(this.handleError<number>("insertFacture")));
+  }
+
+  public deleteFacture(facturetodelete: Facture): Observable<number> {
+    return this.http
+      .post<number>(this.BASE_URL + "/factures/delete/" + facturetodelete.noproprietaire + "/"+ facturetodelete.noanimal + "/" + facturetodelete.noemploye, {})
+      .pipe(catchError(this.handleError<number>("deleteFacture")));
+  }
+
+
   private handleError<T>(
     request: string,
     result?: T
