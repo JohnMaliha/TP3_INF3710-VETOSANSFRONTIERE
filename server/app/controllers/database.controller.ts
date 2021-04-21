@@ -77,6 +77,50 @@ export class DatabaseController {
       }
     );
 
+    router.put(
+      "/animals/update",
+      (req: Request, res: Response, _: NextFunction) => {
+        const animal: Animal = {
+            noanimal : req.body.noanimal ? req.body.noanimal : "",
+            noclinique : req.body.noclinique ? req.body.noclinique: "",
+            noproprietaire : req.body.noproprietaire ? req.body.noproprietaire: "",
+            nom :req.body.nom ? req.body.nom: "",
+            typeanimal : req.body.typeanimal ? req.body.typeanimal:  "",
+            espece :req.body.espece ?  req.body.espece : "",
+            taille :req.body.taille ? req.body.taille: "",
+            poids :req.body.poids ? req.body.poids : "",
+            description:req.body.description ? req.body.description: "" ,
+            dateinscription :req.body.dateinscription ? req.body.dateinscription : "",
+            etatactuel :req.body.etatactuel ? req.body.etatactuel : "",
+        };
+
+        this.databaseService
+          .updateAnimal(animal)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+          });
+      }
+    );
+
+
+    router.post(
+      "/animals/delete/:noanimal",
+      (req: Request, res: Response, _: NextFunction) => {
+        const noanimaltodel: number = req.params.noanimal;
+        this.databaseService
+          .deleteAnimal(noanimaltodel)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+          });
+      }
+    );
+
 
     // facture 
 

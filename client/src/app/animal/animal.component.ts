@@ -23,9 +23,6 @@ export class AnimalComponent implements OnInit {
   @ViewChild("newetatactuel") newetatactuel: ElementRef;
 
 
-  // public noProprietaire: Proprietaire[] = [];
-  // public noClient: Client[] =[];
-
   public animalTable : Animal[] = []; 
   public duplicateError: boolean = false;
 
@@ -68,6 +65,64 @@ export class AnimalComponent implements OnInit {
     });
   }
 
+  public deleteAnimal(animaldel: number) {
+    this.communicationService.deleteAnimal(animaldel).subscribe((res: any) => {
+      this.refresh();
+      // console.log(res.body);
+    });
+  }
+
+
+  // TO modify values in the tables.
+  public changeAnimalnoClinique(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].noclinique = editField;
+  }
+
+  public changeAnimalnoProprietaire(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].noproprietaire = editField;
+  }
+
+  public changeAnimalNom(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].nom = editField;
+  }
+
+  public changeAnimalTypeAnimal(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].typeanimal = editField;
+  }
+
+  public changeAnimalEspece(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].espece = editField;
+  }
+
+  public changeAnimalTaille(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].taille = editField;
+  }
+
+  public changeAnimalPoids(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].poids = editField;
+  }
+  public changeAnimalDescription(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].description = editField;
+  }
+
+  public changeAnimalDate(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].dateinscription = editField;
+  }
+
+  public changeAnimalEtatActuel(event:any,i:number){
+    const editField = event.target.textContent;
+    this.animalTable[i].etatactuel = editField;
+  }
+
   private refresh() {
     this.getAnimal();
     this.newanimalnb.nativeElement.innerText = "";
@@ -89,6 +144,7 @@ export class AnimalComponent implements OnInit {
 
   public updateAnimal(i: number) {
     this.communicationService.updateAnimal(this.animalTable[i]).subscribe((res: any) => {
+      console.log("update",this.animalTable);
       this.refresh();
     });
   }

@@ -57,6 +57,28 @@ export class DatabaseService {
     return res;
   }
 
+  public async updateAnimal(animal: Animal): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+
+    const query = `UPDATE TP3VetoSansFrontieresDB.Animal SET 
+    noclinique ='${animal.noclinique}',
+    noproprietaire =${animal.noproprietaire},
+    nom='${animal.nom}',typeanimal ='${animal.typeanimal}',espece ='${animal.espece}',
+    taille = '${animal.taille}', poids = '${animal.poids}', description = '${animal.description}',
+    dateinscription ='${animal.dateinscription}',etatactuel ='${animal.etatactuel}' WHERE noanimal = ${animal.noanimal};`;
+
+    const res = await client.query(query);
+    client.release();
+    return res;
+  }
+
+  public async deleteAnimal(noAnimal: number): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    const res = await client.query(`DELETE FROM TP3VetoSansFrontieresDB.Animal WHERE noanimal = ${noAnimal};`);
+    client.release();
+    return res;
+  }
+
 
   // facture
     public async filterFacture(): Promise<pg.QueryResult> {
@@ -67,6 +89,9 @@ export class DatabaseService {
   //  console.log("facture",res);
     return res;
   }
+
+
+
 
 
   // TO DELETE AFTER
