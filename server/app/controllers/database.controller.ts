@@ -11,6 +11,7 @@ import {Animal } from  "../../../common/tables/Animal"
 
 import { DatabaseService } from "../services/database.service";
 import Types from "../types";
+import { Facture } from "../../../common/tables/Facture";
 
 
 @injectable()
@@ -23,7 +24,6 @@ export class DatabaseController {
     const router: Router = Router();
 
     // animals
-
     router.get("/animals", (req: Request, res: Response, _: NextFunction) => {
       this.databaseService
         .filterAnimals()
@@ -77,6 +77,28 @@ export class DatabaseController {
     );
 
 
+    // facture 
+
+ router.get("/factures", (req: Request, res: Response, _: NextFunction) => {
+      this.databaseService
+        .filterFacture()
+        .then((result: pg.QueryResult) => {
+          const factures: Facture[] = result.rows.map((facture: Facture) => ({
+            noproprietaire : facture.noproprietaire,
+            noanimal : facture.noanimal,
+            noemploye : facture.noemploye,
+            datefacture : facture.datefacture,
+            listetraitement : facture.listetraitement,
+            total : facture.total,
+            modedepaiement :facture.modedepaiement,
+            paiementeffectuer :facture.paiementeffectuer,
+          }));
+          res.json(factures);
+        })
+        .catch((e: Error) => {
+          console.error(e.stack);
+        });
+    });
 
 
 

@@ -4,6 +4,8 @@ import { Injectable } from "@angular/core";
 import { of, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Animal } from "../../../common/tables/Animal";
+import {Facture} from "../../../common/tables/Facture"
+
 import {Hotel} from "../../../common/tables/Hotel"
 import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
@@ -25,7 +27,6 @@ export class CommunicationService {
   }
 
   // Animals 
-
     // return all animals from the db
   public getAnimals(): Observable<Animal[]> {
     return this.http
@@ -45,6 +46,13 @@ export class CommunicationService {
     return this.http
       .post<number>(this.BASE_URL + "/animals/insert", animal)
       .pipe(catchError(this.handleError<number>("insertAnimal")));
+  }
+
+  // Facture
+  public getFacture(): Observable<Facture[]> {
+    return this.http
+      .get<Facture[]>(this.BASE_URL + "/factures")
+      .pipe(catchError(this.handleError<Facture[]>("getFacture")));
   }
 
   private handleError<T>(

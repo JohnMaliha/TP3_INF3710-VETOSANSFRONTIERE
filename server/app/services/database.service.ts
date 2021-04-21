@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { Room } from "../../../common/tables/Room";
 import { Hotel } from "../../../common/tables/Hotel";
 import { Gender, Guest } from "../../../common/tables/Guest";
+
 import { Animal } from "../../../common/tables/Animal";
 
 @injectable()
@@ -53,6 +54,15 @@ export class DatabaseService {
   }
 
 
+  // facture
+    public async filterFacture(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Facture;";
+    const res = await client.query(queryText);
+    client.release();
+    console.log("facture",res);
+    return res;
+  }
 
 
   // TO DELETE AFTER
@@ -72,7 +82,7 @@ export class DatabaseService {
   }
 
 
-  // get the hotel names and numbers so so that the user can only select an existing hotel
+ // get the hotel names and numbers so so that the user can only select an existing hotel
   public async getHotelNamesByNos(): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
     const res = await client.query("SELECT hotelNb, name FROM HOTELDB.Hotel;");

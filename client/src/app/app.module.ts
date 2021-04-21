@@ -19,7 +19,7 @@ import { FactureComponent } from './facture/facture.component';
     HotelComponent,
     GuestComponent,
     AnimalComponent,
-      FactureComponent
+    FactureComponent
    ],
   imports: [
     CommonModule,

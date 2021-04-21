@@ -1,3 +1,54 @@
-<p>
-  facture works!
-</p>
+<div id="Facture">
+  <h1 align ='center'>Facture</h1>
+
+  <div class="divider"></div>
+
+  <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
+    <thead class="header">
+      <th class="contentCell">noProprietaire</th>
+      <th class="contentCell">noAnimal</th>
+      <th class="contentCell">noEmploye</th>
+      <th class="actionCell">dateFacture</th>
+      <th class="actionCell">listeTraitement</th>
+      <th class="actionCell">total</th>
+      <th class="actionCell">modeDePaiement</th>
+      <th class="actionCell">paiementEffectuer</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let facture of factureTable; let i =index">
+
+        <td class="contentCell">{{facture.noproprietaire}}</td>
+        <td class="contentCell">{{facture.noanimal}}</td>
+        <td class="contentCell">{{facture.noemploye}}</td>
+        <td class="contentCell">{{facture.datefacture.substring(0,10)}}</td>
+        <td class="contentCell">{{facture.listetraitement}}</td>
+        <td class="contentCell">{{facture.total}}</td>
+        <td class="contentCell">{{facture.modedepaiement}}</td>
+        <td class="contentCell">{{facture.paiementeffectuer}}</td>
+
+       <!-- <td class="contentCell" contenteditable="true" (blur)="changeHotelName($event, i)">{{ hotel.name}}</td>
+        <td class="contentCell" contenteditable="true" (blur)="changeHotelCity($event, i)">{{ hotel.city }}</td>  -->
+          <!-- <td class="actionCell">
+          <button type="button" class="submitbtn" (click)="updateAnimal(i)"><i class="fa fa-edit"></i></button>
+         <button type="button" class="deletebtn" (click)="deleteFacture(facture.hotelnb)"><i class="fa fa-trash-o"></i></button> 
+        </td>   -->
+      </tr>
+
+      <tr class="blank_row">
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau Proprietaire" #noproprietaire></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle animal" #noanimal></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle employe" #noemploye></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau datefacture" #datefacture></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau listeTraitement" #listetraitement></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle total" #total></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle modedePaiement" #modedepaiement></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouveau paiementeffetuer?" #paiementeffectuer></td>
+        <td class="contentCell"></td>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <!-- <button type="button" class="btn" (click)="this.inser()">+</button>  -->
+
+</div>
