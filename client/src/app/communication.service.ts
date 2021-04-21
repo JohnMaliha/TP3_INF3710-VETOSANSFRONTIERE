@@ -43,6 +43,7 @@ export class CommunicationService {
 
   // inserts animals from client into db
   public insertAnimal(animal: Animal): Observable<number> {
+    console.log('communication',animal);
     return this.http
       .post<number>(this.BASE_URL + "/animals/insert", animal)
       .pipe(catchError(this.handleError<number>("insertAnimal")));

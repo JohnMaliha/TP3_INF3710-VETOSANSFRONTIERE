@@ -22,7 +22,10 @@ export class AnimalComponent implements OnInit {
   @ViewChild("newdateinscription") newdateinscription: ElementRef;
   @ViewChild("newetatactuel") newetatactuel: ElementRef;
 
-  
+
+  // public noProprietaire: Proprietaire[] = [];
+  // public noClient: Client[] =[];
+
   public animalTable : Animal[] = []; 
   public duplicateError: boolean = false;
 
@@ -58,7 +61,7 @@ export class AnimalComponent implements OnInit {
     this.communicationService.insertAnimal(animal).subscribe((res: number) => {
       if (res > 0) {
         this.communicationService.filter("update");
-        console.log('insertanimal',res);
+        console.log('insertAnimal',res);
       }
       this.refresh();
       this.duplicateError = res === -1;

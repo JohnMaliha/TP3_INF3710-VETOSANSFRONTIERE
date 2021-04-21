@@ -3,6 +3,28 @@
 
   <div class="divider"></div>
 
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="hotelSelect">noProprietaire</label>
+      </div>
+     <select class="custom-select" id="hotelSelect" (change)=" getAnimal"> 
+        <!-- <option *ngFor="let hotel of hotelPKs">{{ hotel.name }}</option> -->
+      </select>
+    </div>
+  </div>
+
+  <div class="container contentSelect">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="hotelSelect">noClient</label>
+      </div>
+     <select class="custom-select" id="hotelSelect" (change)="getAnimal"> 
+        <!-- <option *ngFor="let hotel of hotelPKs">{{ hotel.name }}</option> -->
+      </select>
+    </div>
+  </div>
+
   <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
     <thead class="header">
       <th class="contentCell">noanimal</th>

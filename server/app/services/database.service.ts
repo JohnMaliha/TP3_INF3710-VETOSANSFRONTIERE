@@ -37,15 +37,19 @@ export class DatabaseService {
     let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Animal;";
     const res = await client.query(queryText);
     client.release();
-    console.log("animal",res);
+  //  console.log("animal",res);
     return res;
   }
   
   public async createAnimal(animal: Animal): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
 
-    const queryText: string = `INSERT INTO TP3VetoSansFrontieresDB.Animal VALUES('${animal.noanimal}','${animal.noclinique}','${animal.noclinique}','${animal.noproprietaire}',
-    '${animal.nom}','${animal.typeanimal}','${animal.espece}','${animal.taille}','${animal.poids}','${animal.description}','${animal.dateinscription}','${animal.etatactuel}');`;
+    const queryText: string = `INSERT INTO TP3VetoSansFrontieresDB.Animal VALUES('${animal.noanimal}',
+    '${animal.noclinique}',
+    '${animal.noproprietaire}',
+    '${animal.nom}','${animal.typeanimal}','${animal.espece}',
+    '${animal.taille}','${animal.poids}','${animal.description}',
+    '${animal.dateinscription}','${animal.etatactuel}');`;
 
     const res = await client.query(queryText);
     client.release();
@@ -60,7 +64,7 @@ export class DatabaseService {
     let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Facture;";
     const res = await client.query(queryText);
     client.release();
-    console.log("facture",res);
+  //  console.log("facture",res);
     return res;
   }
 

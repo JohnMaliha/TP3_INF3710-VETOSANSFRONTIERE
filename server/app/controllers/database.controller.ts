@@ -49,7 +49,8 @@ export class DatabaseController {
     });
 
     router.post(
-      "/animals/insert", (req: Request, res: Response, _: NextFunction) => {
+      "/animals/insert", async (req: Request, res: Response, _: NextFunction) => {
+        console.log("victor",req);
         const animal: Animal = {
             noanimal : req.body.noanimal,
             noclinique : req.body.noclinique,
@@ -60,11 +61,11 @@ export class DatabaseController {
             taille :req.body.taille,
             poids :req.body.poids,
             description:req.body.description ,
-            dateinscription :req.body.description,
+            dateinscription :req.body.dateinscription,
             etatactuel :req.body.etatactuel,
         };
 
-        this.databaseService
+        await this.databaseService
           .createAnimal(animal)
           .then((result: pg.QueryResult) => {
             res.json(result.rowCount);
