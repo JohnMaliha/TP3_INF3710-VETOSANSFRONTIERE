@@ -28,24 +28,24 @@
         <td class="contentCell">{{animal.taille}}</td>
         <td class="contentCell">{{animal.poids}}</td>
         <td class="contentCell">{{animal.description}}</td>
-        <td class="contentCell">{{animal.dateinscription}}</td>
+        <td class="contentCell">{{animal.dateinscription.substring(0,10)}}</td>
         <td class="contentCell">{{animal.etatactuel}}</td>
 
        <!-- <td class="contentCell" contenteditable="true" (blur)="changeHotelName($event, i)">{{ hotel.name}}</td>
         <td class="contentCell" contenteditable="true" (blur)="changeHotelCity($event, i)">{{ hotel.city }}</td>  -->
-        <!-- <td class="actionCell">
-          <button type="button" class="submitbtn" (click)="updateHotel(i)"><i class="fa fa-edit"></i></button>
-          <button type="button" class="deletebtn" (click)="deleteHotel(hotel.hotelnb)"><i class="fa fa-trash-o"></i></button>
-        </td> -->
+         <td class="actionCell">
+          <button type="button" class="submitbtn" (click)="updateAnimal(i)"><i class="fa fa-edit"></i></button>
+      <!--    <button type="button" class="deletebtn" (click)="deleteAnimal(hotel.hotelnb)"><i class="fa fa-trash-o"></i></button> -->
+        </td> 
       </tr>
 
       <tr class="blank_row">
         <td class="contentCell" contenteditable="true" placeholder="Nouveau Animal" #newanimalnb></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouvelle Clinique" #newClinique></td>
-        <td class="contentCell" contenteditable="true" placeholder="Nouvelle proprietaire" #newProprietaireCity></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle proprietaire" #newProprietaire></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouveau nom" #newNom></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouveau typeanimal" #newtypeanimal></td>
-        <td class="contentCell" contenteditable="true" placeholder="Nouveau espece" #newtypeanimal></td>
+        <td class="contentCell" contenteditable="true" placeholder="Nouvelle espece" #newtypeespece></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouvelle taille" #newtaille></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouveau poids" #newpoids></td>
         <td class="contentCell" contenteditable="true" placeholder="Nouvelle description" #newdescription></td>
@@ -57,6 +57,6 @@
     </tbody>
   </table>
 
-  <button type="button" class="btn">+</button> 
+  <button type="button" class="btn" (click)="this.insertAnimals()">+</button> 
 
 </div>

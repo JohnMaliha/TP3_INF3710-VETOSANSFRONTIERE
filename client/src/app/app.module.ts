@@ -10,14 +10,16 @@ import { GuestComponent } from "./guest/guest.component";
 import { HotelComponent } from "./hotel/hotel.component";
 import { RoomComponent } from "./room/room.component";
 import { AnimalComponent } from './animal/animal.component';
+import { FactureComponent } from './facture/facture.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
     RoomComponent,
     HotelComponent,
     GuestComponent,
-    AnimalComponent
+    AnimalComponent,
+      FactureComponent
    ],
   imports: [
     CommonModule,

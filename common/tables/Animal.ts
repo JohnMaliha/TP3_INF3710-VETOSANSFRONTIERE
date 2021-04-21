@@ -8,6 +8,6 @@ export interface Animal{
     taille :string;
     poids : string;
     description :string;
-    dateinscription :string;
+    dateinscription : string;
     etatactuel :string;
 }

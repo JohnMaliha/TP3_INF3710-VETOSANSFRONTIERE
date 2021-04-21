@@ -38,7 +38,7 @@ export class DatabaseController {
             taille :animal.taille,
             poids :animal.poids,
             description:animal.description ,
-            dateinscription :animal.description,
+            dateinscription :animal.dateinscription,
             etatactuel :animal.etatactuel,
           }));
           res.json(animals);
@@ -48,7 +48,41 @@ export class DatabaseController {
         });
     });
 
+    router.post(
+      "/animals/insert", (req: Request, res: Response, _: NextFunction) => {
+        const animal: Animal = {
+            noanimal : req.body.noanimal,
+            noclinique : req.body.noclinique,
+            noproprietaire : req.body.noproprietaire,
+            nom :req.body.nom,
+            typeanimal : req.body.typeanimal,
+            espece :req.body.espece,
+            taille :req.body.taille,
+            poids :req.body.poids,
+            description:req.body.description ,
+            dateinscription :req.body.description,
+            etatactuel :req.body.etatactuel,
+        };
 
+        this.databaseService
+          .createAnimal(animal)
+          .then((result: pg.QueryResult) => {
+            res.json(result.rowCount);
+          })
+          .catch((e: Error) => {
+            console.error(e.stack);
+            res.json(-1);
+          });
+      }
+    );
+
+
+
+
+
+
+
+    // to delete
     router.get(
       "/hotels/hotelNb",
       (req: Request, res: Response, _: NextFunction) => {

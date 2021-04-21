@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { Room } from "../../../common/tables/Room";
 import { Hotel } from "../../../common/tables/Hotel";
 import { Gender, Guest } from "../../../common/tables/Guest";
+import { Animal } from "../../../common/tables/Animal";
 
 @injectable()
 export class DatabaseService {
@@ -25,7 +26,7 @@ export class DatabaseService {
     
     const client = await this.pool.connect();
     const res = await client.query(`SELECT * FROM TP3VetoSansFrontieresDB.${tableName};`);
-    client.release()
+    client.release();
     return res;
   }
 
@@ -38,7 +39,18 @@ export class DatabaseService {
     console.log("animal",res);
     return res;
   }
+  
+  public async createAnimal(animal: Animal): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
 
+    const queryText: string = `INSERT INTO TP3VetoSansFrontieresDB.Animal VALUES('${animal.noanimal}','${animal.noclinique}','${animal.noclinique}','${animal.noproprietaire}',
+    '${animal.nom}','${animal.typeanimal}','${animal.espece}','${animal.taille}','${animal.poids}','${animal.description}','${animal.dateinscription}','${animal.etatactuel}');`;
+
+    const res = await client.query(queryText);
+    client.release();
+    console.log(res);
+    return res;
+  }
 
 
 

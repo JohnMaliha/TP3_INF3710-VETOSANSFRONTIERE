@@ -24,8 +24,9 @@ export class CommunicationService {
     this._listners.next(filterBy);
   }
 
-  
+  // Animals 
 
+    // return all animals from the db
   public getAnimals(): Observable<Animal[]> {
     return this.http
       .get<Animal[]>(this.BASE_URL + "/animals")
@@ -39,6 +40,12 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<number>("updateAnimal")));
   }
 
+  // inserts animals from client into db
+  public insertAnimal(animal: Animal): Observable<number> {
+    return this.http
+      .post<number>(this.BASE_URL + "/animals/insert", animal)
+      .pipe(catchError(this.handleError<number>("insertAnimal")));
+  }
 
   private handleError<T>(
     request: string,
