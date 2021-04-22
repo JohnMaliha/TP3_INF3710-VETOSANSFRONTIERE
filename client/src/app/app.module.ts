@@ -21,7 +21,7 @@ import { TraitementComponent } from './traitement/traitement.component';
     GuestComponent,
     AnimalComponent,
     FactureComponent,
-      TraitementComponent
+    TraitementComponent
    ],
   imports: [
     CommonModule,
