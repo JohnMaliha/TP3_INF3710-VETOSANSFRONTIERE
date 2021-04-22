@@ -200,6 +200,7 @@ export class AnimalComponent implements OnInit {
 
   private refresh() {
     this.getAnimal();
+    this.getAnimalListName();
     this.getClinique();
     this.getProprietaire();
     this.newanimalnb.nativeElement.innerText = "";
