@@ -18,20 +18,17 @@
     <tbody>
       <tr *ngFor="let facture of factureTable; let i =index">
 
-        <td class="contentCell" contenteditable="true">{{facture.noproprietaire}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.noanimal}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.noemploye}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.datefacture.substring(0,10)}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.listetraitement}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.total}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.modedepaiement}}</td>
-        <td class="contentCell" contenteditable="true">{{facture.paiementeffectuer}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.noproprietaire}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.noanimal}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.noemploye}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.datefacture.substring(0,10)}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.listetraitement}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.total}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.modedepaiement}}</td>
+        <td class="contentCell" contenteditable="false">{{facture.paiementeffectuer}}</td>
 
-       <!-- <td class="contentCell" contenteditable="true" (blur)="changeHotelName($event, i)">{{ hotel.name}}</td>
-        <td class="contentCell" contenteditable="true" (blur)="changeHotelCity($event, i)">{{ hotel.city }}</td>  -->
         <td class="actionCell">
-          <button type="button" class="submitbtn" (click)="updateFacture(i)"><i class="fa fa-edit"></i></button>
-         <button type="button" class="deletebtn" (click)="deleteFacture(facture.hotelnb)"><i class="fa fa-trash-o"></i></button> 
+         <button type="button" class="deletebtn" (click)="deleteFacture(facture.noproprietaire,facture.noanimal,facture.nomemploye)"><i class="fa fa-trash-o"></i></button> 
         </td>  
       </tr>
 

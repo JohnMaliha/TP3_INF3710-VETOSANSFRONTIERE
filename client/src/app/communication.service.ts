@@ -12,6 +12,10 @@ import { Room } from "../../../common/tables/Room";
 import { HotelPK } from "../../../common/tables/HotelPK";
 import { Guest } from "../../../common/tables/Guest";
 import { Clinique } from "../../../common/tables/Clinique";
+import { ListeTraitementAnimal } from "../../../common/tables/ListeTraitementAnimal";
+import { Examen } from "../../../common/tables/Examen";
+import { Traitement } from "../../../common/tables/Traitement";
+import { MultipleTraitement } from "../../../common/tables/MultipleTraitement";
 
 @Injectable()
 export class CommunicationService {
@@ -58,7 +62,6 @@ export class CommunicationService {
 
   // inserts animals from client into db
   public insertAnimal(animal: Animal): Observable<number> {
-    console.log('communication',animal);
     return this.http
       .post<number>(this.BASE_URL + "/animals/insert", animal)
       .pipe(catchError(this.handleError<number>("insertAnimal")));
@@ -70,6 +73,11 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<number>("deleteAnimal")));
   }
 
+  public getAnimalsByName(nom:string): Observable<Animal[]> {
+    return this.http
+      .get<Animal[]>(this.BASE_URL + "/animalsname/" + nom, {})
+      .pipe(catchError(this.handleError<Animal[]>("getAnimalByNom")));
+  } 
 
   // Facture
   public getFacture(): Observable<Facture[]> {
@@ -88,10 +96,39 @@ export class CommunicationService {
 
   public deleteFacture(facturetodelete: Facture): Observable<number> {
     return this.http
-      .post<number>(this.BASE_URL + "/factures/delete/" + facturetodelete.noproprietaire + "/"+ facturetodelete.noanimal + "/" + facturetodelete.noemploye, {})
+      .post<number>(this.BASE_URL + "/factures/delete/" + facturetodelete.noproprietaire + facturetodelete.noanimal + facturetodelete.noemploye, {})
       .pipe(catchError(this.handleError<number>("deleteFacture")));
   }
 
+  // traitement
+
+  public getTraitementAnimal(noanimal:number): Observable<ListeTraitementAnimal[]> {
+    console.log(noanimal);
+    return this.http
+      .get<ListeTraitementAnimal[]>(this.BASE_URL + "/examen,traitement,traitementmultiple" + noanimal)
+      .pipe(catchError(this.handleError<ListeTraitementAnimal[]>("getTraitementAnimal")));
+  }
+
+  //  examens 
+  public getExamens(): Observable<Examen[]> {
+    return this.http
+      .get<Examen[]>(this.BASE_URL + "/examens")
+      .pipe(catchError(this.handleError<Examen[]>("getExamen")));
+  }
+
+  // traitement
+  public getTraitements(): Observable<Traitement[]> {
+    return this.http
+      .get<Traitement[]>(this.BASE_URL + "/traitements")
+      .pipe(catchError(this.handleError<Traitement[]>("getTraitement")));
+  }
+
+  // traitementmultiple
+  public getMultipleTraitements(): Observable<MultipleTraitement[]> {
+    return this.http
+      .get<MultipleTraitement[]>(this.BASE_URL + "/multipletraitements")
+      .pipe(catchError(this.handleError<MultipleTraitement[]>("getMultipleTraitement")));
+  }
 
   private handleError<T>(
     request: string,

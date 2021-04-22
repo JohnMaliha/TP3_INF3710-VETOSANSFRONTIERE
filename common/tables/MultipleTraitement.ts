@@ -1,4 +1,4 @@
 export interface MultipleTraitement{
-    noExamen : number,
-    noTraitement :number,
+    noexamen : number;
+    notraitement :number;
 }

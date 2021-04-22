@@ -8,8 +8,8 @@
       <div class="input-group-prepend">
         <label class="input-group-text" for="animalSelect">nom de l'Animal</label>
       </div>
-      <select class="custom-select">
-        <option *ngFor="let animals of animalTable;let i= index">{{ animals.nom }}</option>
+      <select class="custom-select" (blur)= "returnName($event)">
+        <option *ngFor="let name of animalnameTable;let i= index">{{ name }}</option>
       </select>
     </div>
   </div>

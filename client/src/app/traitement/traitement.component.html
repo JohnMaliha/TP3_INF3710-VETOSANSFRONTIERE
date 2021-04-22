@@ -6,25 +6,28 @@
   <div class="container contentSelect">
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <label class="input-group-text" >noAnimal</label>
+        <label class="input-group-text">noAnimal</label>
       </div>
-      <select class="custom-select">
-        <option *ngFor="let animal of animalTable">{{ animal.noanimal }}</option>
+      <select class="custom-select"  (blur) = "getnoAnimal($event)" >
+        <option *ngFor="let exam of examenTable">{{ exam.noanimal }}</option>
       </select>
     </div>
   </div>
 
   <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
     <thead class="header">
+      <th class="contentCell">noExamen</th>
       <th class="contentCell">noTraitement</th>
-      <th class="contentCell">descriptionTraitement</th>
-      <th class="contentCell">coutTraitement</th>
+      <th class="contentCell">nomVeterinaire</th>
+      <th class="contentCell">descriptiontraitement</th>
     </thead>
     <tbody>
-      <tr *ngFor="let traitement of traitementTable">
+      <tr *ngFor="let traitement of listeTraitementSelectionner">
+        <td class="contentCell">{{ traitement.noexamen }}</td>
         <td class="contentCell">{{ traitement.notraitement }}</td>
+        <td class="contentCell">{{ traitement.nomveterinaire }}</td>
         <td class="contentCell">{{ traitement.descriptiontraitement }}</td>
-        <td class="contentCell">{{ traitement.couttraitement }}</td>
+
   
       </tr>
     </tbody>

@@ -60,6 +60,16 @@ export class DatabaseService {
   //  console.log("animal",res);
     return res;
   }
+
+  public async filterAnimalsbyName(nom:string): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let queryText = `SELECT * FROM TP3VetoSansFrontieresDB.Animal as animals WHERE animals.nom = '${nom}';`;
+    console.log(queryText);
+    const res = await client.query(queryText);
+    client.release();
+  //  console.log("animal",res);
+    return res;
+  }
   
   public async createAnimal(animal: Animal): Promise<pg.QueryResult> {
     const client = await this.pool.connect();
@@ -132,6 +142,45 @@ export class DatabaseService {
     return res;
   }
 
+
+  // traitement : query qui retourne les traitements pr 1 animal particuler
+  public async findTraitementAnimal(noanimal:number):Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    console.log(noanimal);
+    const res = await client.query(`SELECT e.noexamen,e.nomveterinaire,traitement.descriptiontraitement,mt.notraitement 
+    FROM TP3VetoSansFrontieresDB.Examen e,TP3VetoSansFrontieresDB.Traitement traitement,TP3VetoSansFrontieresDB.MultipleTraitement mt
+    WHERE e.noanimal = ${noanimal} AND e.noexamen = mt.noexamen AND mt.notraitement = traitement.notraitement; `);
+
+    client.release();
+    return res;
+  }
+
+  // examen
+  public async filterExamens(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Examen;";
+    const res = await client.query(queryText);
+    client.release();
+    return res;
+  }
+
+  // traitement
+  public async filterTraitements(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Traitement;";
+    const res = await client.query(queryText);
+    client.release();
+    return res;
+  }
+
+  // facture
+  public async filterMultiTraitements(): Promise<pg.QueryResult> {
+    const client = await this.pool.connect();
+    let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.MultipleTraitement;";
+    const res = await client.query(queryText);
+    client.release();
+    return res;
+  }
 
 
 

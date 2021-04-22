@@ -1,8 +1,8 @@
 export interface Examen {
-    noExamen: number;
-    noAnimal: number
+    noexamen: number;
+    noanimal: number
     date : string;
     heure :string;
-    nomVeterinaire :string;
+    nomveterinaire :string;
     description:string; 
 }

@@ -33,11 +33,12 @@ export class AnimalComponent implements OnInit {
   public duplicateError: boolean = false;
   public noproprio : number;
   public cliniqueno : string;
+  filtered:boolean = false;
 
-  // public selectedAnimal: Animal = {
-  //   noanimal: 0,
-  //   nom: "placeholderHotel",
-  // };
+
+  animalnameTable : string[] = [];
+
+  filtreRechercheNom : string;
 
   constructor(public communicationService : CommunicationService) { }
 
@@ -45,12 +46,43 @@ export class AnimalComponent implements OnInit {
     this.getAnimal();
     this.getProprietaire();
     this.getClinique();
+    this.getAnimalListName();
+    // this.setupAnimalNames(this.animalTable);
   }
 
-  public updateSelectedAnimalName(hotelID: any) {
-   // this.selectedHotel = this.hotelPKs[hotelID];
-    this.getAnimal();
-    this.refresh();
+  public getAnimal():void{
+    this.communicationService.getAnimals().subscribe ((animals:Animal[])=>{
+      this.animalTable = animals;
+    });
+    if(this.filtered) this.getAnimalbyName();
+  }
+
+  public getAnimalbyName():void{
+    this.communicationService.getAnimalsByName(this.filtreRechercheNom).subscribe ((animals:Animal[])=>{
+      this.animalTable = animals;
+    });
+    this.getAnimalListName();
+  }
+
+  public getAnimalListName():void{
+    this.communicationService.getAnimals().subscribe ((animals:Animal[])=>{
+      this.setupAnimalNames(animals);
+    });
+  }
+
+  setupAnimalNames(animalTable:Animal[]){
+    let temp :string[] = []; 
+    for(let animal of animalTable){
+      temp.push(animal.nom);
+    }
+    this.animalnameTable = temp.filter((item, i, ar) => ar.indexOf(item) === i);
+  }
+
+  returnName(event:any){
+    this.filtered = true;
+    const fa = event.target.value;
+    this.filtreRechercheNom = fa as string;
+    this.getAnimalbyName();
   }
 
   // trouver tt les proprietaires
@@ -66,13 +98,6 @@ export class AnimalComponent implements OnInit {
     this.communicationService.getCliniques().subscribe ((clinique:Clinique[])=>{
       this.cliniqueTable = clinique;
       console.log(this.cliniqueTable);
-    });
-  }
-
-  public getAnimal():void{
-    this.communicationService.getAnimals().subscribe ((animals:Animal[])=>{
-      this.animalTable = animals;
-      console.log(this.animalTable);
     });
   }
 
