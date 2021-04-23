@@ -95,8 +95,9 @@ export class CommunicationService {
   }
 
   public deleteFacture(facturetodelete: Facture): Observable<number> {
+    console.log("fafa",facturetodelete);
     return this.http
-      .post<number>(this.BASE_URL + "/factures/delete/" + facturetodelete.noproprietaire + facturetodelete.noanimal + facturetodelete.noemploye, {})
+      .post<number>(this.BASE_URL + "/factures/delete/" + facturetodelete, {})
       .pipe(catchError(this.handleError<number>("deleteFacture")));
   }
 
@@ -105,7 +106,7 @@ export class CommunicationService {
   public getTraitementAnimal(noanimal:number): Observable<ListeTraitementAnimal[]> {
     console.log(noanimal);
     return this.http
-      .get<ListeTraitementAnimal[]>(this.BASE_URL + "/examen,traitement,traitementmultiple" + noanimal)
+      .get<ListeTraitementAnimal[]>(this.BASE_URL + "/ListeTraitementAnimal" + noanimal)
       .pipe(catchError(this.handleError<ListeTraitementAnimal[]>("getTraitementAnimal")));
   }
 

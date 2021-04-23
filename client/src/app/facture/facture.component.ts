@@ -56,8 +56,9 @@ export class FactureComponent implements OnInit {
     });
   }
 
-  public deleteFacture(facturetodel: Facture) {
-    this.communicationService.deleteFacture(facturetodel).subscribe((res: any) => {
+  public deleteSelectedFacture(fac: Facture) {
+    console.log("dadas",fac);
+      this.communicationService.deleteFacture(fac).subscribe((res: any) => {
       this.refresh();
     });
   }
