@@ -242,7 +242,7 @@ export class DatabaseController {
     );
 
     router.post(
-      "/factures/delete/:noproprietaire : noanimal : noemploye",
+      "/factures/delete/: facturedelete",
       (req: Request, res: Response, _: NextFunction) => {
         const facturedelete: Facture = {
           noproprietaire:req.body.noproprietaire,
@@ -253,6 +253,7 @@ export class DatabaseController {
           total :req.body.total,
           modedepaiement :req.body.modedepaiement,
           paiementeffectuer:req.body.paiementeffectuer};
+          console.log(facturedelete);
         this.databaseService
           .deleteFacture(facturedelete)
           .then((result: pg.QueryResult) => {

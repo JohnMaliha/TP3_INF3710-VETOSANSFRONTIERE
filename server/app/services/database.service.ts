@@ -83,7 +83,6 @@ export class DatabaseService {
 
     const res = await client.query(queryText);
     client.release();
-    console.log(res);
     return res;
   }
 
@@ -136,8 +135,10 @@ export class DatabaseService {
   }
 
   public async deleteFacture(facture:Facture): Promise<pg.QueryResult> {
+    console.log(facture);
     const client = await this.pool.connect();
     const res = await client.query(`DELETE FROM TP3VetoSansFrontieresDB.Facture WHERE noproprietaire = ${facture.noproprietaire} AND noanimal = ${facture.noanimal} AND noemploye =${facture.noemploye} ;`);
+    console.log(res); 
     client.release();
     return res;
   }
