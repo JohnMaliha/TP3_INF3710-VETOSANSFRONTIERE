@@ -130,10 +130,10 @@ export class DatabaseService {
     return res;
   }
 
-  public async deleteFacture(facture:Facture): Promise<pg.QueryResult> {
-    console.log(facture);
+  public async deleteFacture(noproprio:number,animalno:number,employeno:number): Promise<pg.QueryResult> {
+    console.log('gang',noproprio,animalno,employeno);
     const client = await this.pool.connect();
-    const res = await client.query(`DELETE FROM TP3VetoSansFrontieresDB.Facture WHERE noproprietaire = ${facture.noproprietaire} AND noanimal = ${facture.noanimal} AND noemploye =${facture.noemploye} ;`);
+    const res = await client.query(`DELETE FROM TP3VetoSansFrontieresDB.Facture WHERE noproprietaire = ${noproprio} AND noanimal = ${animalno} AND noemploye =${employeno} ;`);
     console.log(res); 
     client.release();
     return res;

@@ -1,6 +1,6 @@
 # INF3710_tp3
 
-TP3 INF3710
+TP3 INF3710 
 
 ## Avant de lancer le projet
 - Assurez-vous que Postgres roule sur vos machines 
@@ -23,3 +23,6 @@ TP3 INF3710
 - npm uninstall pg
 - npm uninstall pg-pool
 - npm install pg 
+
+Merci, 
+John Maliha et Johnny Khoury

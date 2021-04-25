@@ -90,11 +90,12 @@ export class CommunicationService {
       .pipe(catchError(this.handleError<number>("insertFacture")));
   }
 
-  public deleteFacture(facturetodelete: Facture): Observable<number> {
-    console.log("fafa",facturetodelete);
+  public deleteFacture(noproprietaire:number,noanimal:number,noemploye:number): Observable<number> {
+    console.log('hellp');
+    console.log(this.BASE_URL + "/factures/delete/" , {noproprietaire,noanimal,noemploye});
     return this.http
-      .post<number>(this.BASE_URL + "/factures/delete/" + facturetodelete, {})
-      .pipe(catchError(this.handleError<number>("deleteFacture")));
+    .post<number>(this.BASE_URL + "/factures/delete/" , {noproprietaire,noanimal,noemploye})
+    .pipe(catchError(this.handleError<number>("deleteFacture")));
   }
 
   // traitement

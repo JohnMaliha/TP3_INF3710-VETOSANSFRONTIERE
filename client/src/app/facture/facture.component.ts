@@ -49,16 +49,14 @@ export class FactureComponent implements OnInit {
     this.communicationService.insertFacture(facture).subscribe((res: number) => {
       if (res > 0) {
         this.communicationService.filter("update");
-        console.log('insertFacture',res);
       }
       this.refresh();
       this.duplicateError = res === -1;
     });
   }
 
-  public deleteSelectedFacture(fac: Facture) {
-    console.log("dadas",fac);
-      this.communicationService.deleteFacture(fac).subscribe((res: any) => {
+  public deleteFacture(noproprietaire:number,noanimal:number,noemploye:number) {
+    this.communicationService.deleteFacture(noproprietaire,noanimal,noemploye).subscribe((res: any) => {
       this.refresh();
     });
   }
