@@ -111,7 +111,6 @@ export class DatabaseService {
     let queryText = "SELECT * FROM TP3VetoSansFrontieresDB.Facture;";
     const res = await client.query(queryText);
     client.release();
-  //  console.log("facture",res);
     return res;
   }
 
@@ -142,10 +141,9 @@ export class DatabaseService {
   // traitement : query qui retourne les traitements pr 1 animal particuler
   public async findTraitementAnimal(noanimal:number):Promise<pg.QueryResult> {
     const client = await this.pool.connect();
-    const res = await client.query(`SELECT e.noexamen,e.nomveterinaire,traitement.descriptiontraitement,mt.notraitement 
+    const res = await client.query(`SELECT e.noanimal,e.noexamen,e.nomveterinaire,traitement.descriptiontraitement,mt.notraitement,traitement.couttraitement
     FROM TP3VetoSansFrontieresDB.Examen e,TP3VetoSansFrontieresDB.Traitement traitement,TP3VetoSansFrontieresDB.MultipleTraitement mt
-    WHERE e.noanimal = ${noanimal} AND e.noexamen = mt.noexamen AND mt.notraitement = traitement.notraitement; `);
-    console.log(res);
+    WHERE e.noanimal = ${noanimal} AND e.noexamen = mt.noexamen AND mt.notraitement = traitement.notraitement;`);
     client.release();
     return res;
   }

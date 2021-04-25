@@ -91,15 +91,12 @@ export class CommunicationService {
   }
 
   public deleteFacture(noproprietaire:number,noanimal:number,noemploye:number): Observable<number> {
-    console.log('hellp');
-    console.log(this.BASE_URL + "/factures/delete/" , {noproprietaire,noanimal,noemploye});
     return this.http
     .post<number>(this.BASE_URL + "/factures/delete/" , {noproprietaire,noanimal,noemploye})
     .pipe(catchError(this.handleError<number>("deleteFacture")));
   }
 
-  // traitement
-
+  // traitement selon le noAnimal
   public getTraitementAnimal(noanimal:number): Observable<ListeTraitementAnimal[]> {
     return this.http
       .get<ListeTraitementAnimal[]>(this.BASE_URL + "/listetraitementanimal/" + noanimal,{}) // "/listetraitementanimal/" + noanimal : body/// ,{} : params

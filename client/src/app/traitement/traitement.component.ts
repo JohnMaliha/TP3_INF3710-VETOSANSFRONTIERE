@@ -5,9 +5,6 @@ import { MultipleTraitement } from '../../../../common/tables/MultipleTraitement
 import { Examen } from '../../../../common/tables/Examen';
 import { ListeTraitementAnimal } from '../../../../common/tables/ListeTraitementAnimal';
 
-
-
-
 @Component({
   selector: 'app-traitement',
   templateUrl: './traitement.component.html',
@@ -52,7 +49,6 @@ export class TraitementComponent implements OnInit {
     this.communicationService.getTraitementAnimal(noanimal).subscribe((traitementrecu: ListeTraitementAnimal[]) => {
       this.listeTraitementSelectionner = traitementrecu;
     });
-    console.log(this.listeTraitementSelectionner);
     this.refresh();
 
   }

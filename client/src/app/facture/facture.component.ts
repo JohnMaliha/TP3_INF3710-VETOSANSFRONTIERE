@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Facture } from '../../../../common/tables/Facture';
+import { Proprietaire } from '../../../../common/tables/Proprietaire';
 import { CommunicationService } from '../communication.service';
 
 @Component({
@@ -18,7 +19,12 @@ export class FactureComponent implements OnInit {
   @ViewChild("paiementeffectuer") paiementeffectuer: ElementRef;
   
   public factureTable : Facture[] = []; 
+  public proprioTable: Proprietaire[] = [];
   public duplicateError: boolean = false;
+  noproprio:number;
+  noempl:number;
+  noanim:number;
+
 
   constructor(public communicationService : CommunicationService) { }
 
@@ -29,10 +35,14 @@ export class FactureComponent implements OnInit {
   public getFacture():void{
     this.communicationService.getFacture().subscribe ((factures:Facture[])=>{
       this.factureTable = factures;
-      console.log(this.factureTable);
     });
   }
 
+  public getProprio():void{
+    this.communicationService.getProprietaires().subscribe ((proprio:Proprietaire[])=>{
+      this.proprioTable = proprio;
+    });
+  }
 
   public insertFactures(): void {
     const facture: any = {
@@ -45,7 +55,6 @@ export class FactureComponent implements OnInit {
       modedepaiement :this.modedepaiement.nativeElement.innerText,
       paiementeffectuer:this.paiementeffectuer.nativeElement.innerText ,
     };
-    console.log(facture);
     this.communicationService.insertFacture(facture).subscribe((res: number) => {
       if (res > 0) {
         this.communicationService.filter("update");
@@ -59,6 +68,21 @@ export class FactureComponent implements OnInit {
     this.communicationService.deleteFacture(noproprietaire,noanimal,noemploye).subscribe((res: any) => {
       this.refresh();
     });
+  }
+
+
+
+  selectednoProprio(event:any):void{
+    const value = event.target.value;
+    this.noproprio = value;
+  }
+  selectednoAnimal(event:any):void{
+    const value = event.target.value;
+    this.noanim = value;
+  }
+  selectednoEmploye(event:any):void{
+    const value = event.target.value;
+    this.noempl = value;
   }
 
 

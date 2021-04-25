@@ -89,7 +89,7 @@ export class AnimalComponent implements OnInit {
   public getProprietaire():void{
     this.communicationService.getProprietaires().subscribe ((proprio:Proprietaire[])=>{
       this.proprietaireTable = proprio;
-      console.log(this.proprietaireTable);
+      // console.log(this.proprietaireTable);
     });
   }
 
@@ -97,7 +97,7 @@ export class AnimalComponent implements OnInit {
   public getClinique():void{
     this.communicationService.getCliniques().subscribe ((clinique:Clinique[])=>{
       this.cliniqueTable = clinique;
-      console.log(this.cliniqueTable);
+      // console.log(this.cliniqueTable);
     });
   }
 
@@ -117,7 +117,6 @@ export class AnimalComponent implements OnInit {
       dateinscription :this.newdateinscription.nativeElement.innerText,
       etatactuel :this.newetatactuel.nativeElement.innerText,
     };
-    console.log(animal);
     this.communicationService.insertAnimal(animal).subscribe((res: number) => {
       if (res > 0) {
         this.communicationService.filter("update");
@@ -137,13 +136,11 @@ export class AnimalComponent implements OnInit {
   // returns the value of the selected value of the drop down list.
   selectednoClinique(event:any):void{
     const value = event.target.value;
-    console.log(value);
     this.cliniqueno = value as string;
   }
 
   selectednoProprio(event:any):void{
     const value = event.target.value;
-    console.log(value);
     this.noproprio = value;
   }
 
@@ -155,7 +152,6 @@ export class AnimalComponent implements OnInit {
 
   public changeAnimalnoProprietaireInput(event:any,i:number){
     const editField = event.target.value;
-    console.log(editField);
     this.animalTable[i].noproprietaire = editField;
   }
 
@@ -223,7 +219,6 @@ export class AnimalComponent implements OnInit {
 
   public updateAnimal(i: number) {
     this.communicationService.updateAnimal(this.animalTable[i]).subscribe((res: any) => {
-      console.log("updateAnimal",this.animalTable);
       this.refresh();
     });
   }

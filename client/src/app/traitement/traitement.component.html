@@ -18,19 +18,21 @@
 
   <table id="ht" align="center" border="1" width="1000" class="table-striped table-hover">
     <thead class="header">
+      <th class="contentCell">noAnimal</th>
       <th class="contentCell">noExamen</th>
       <th class="contentCell">noTraitement</th>
       <th class="contentCell">nomVeterinaire</th>
       <th class="contentCell">descriptiontraitement</th>
+      <th class="contentCell">Cout du traitement</th>
     </thead>
     <tbody>
       <tr *ngFor="let traitement of listeTraitementSelectionner">
+        <td class="contentCell">{{ traitement.noanimal }}</td>
         <td class="contentCell">{{ traitement.noexamen }}</td>
         <td class="contentCell">{{ traitement.notraitement }}</td>
         <td class="contentCell">{{ traitement.nomveterinaire }}</td>
         <td class="contentCell">{{ traitement.descriptiontraitement }}</td>
-
-  
+        <td class="contentCell">{{ traitement.couttraitement }}</td>
       </tr>
     </tbody>
   </table>

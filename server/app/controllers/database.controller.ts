@@ -260,18 +260,19 @@ export class DatabaseController {
       }
     );
 
-    // traitement
-
+    // traitement selon le noAnimal
     router.get("/listetraitementanimal/:noanimal", (req: Request, res: Response, _: NextFunction) => {
       const noanimal = req.params.noanimal;
       this.databaseService
         .findTraitementAnimal(noanimal)
         .then((result: pg.QueryResult) => {
           const traitementanimal: ListeTraitementAnimal[] = result.rows.map((traitementrecu: ListeTraitementAnimal) => ({
+            noanimal:traitementrecu.noanimal,
             notraitement : traitementrecu.notraitement,
             noexamen : traitementrecu.noexamen,
             nomveterinaire: traitementrecu.nomveterinaire,
             descriptiontraitement:traitementrecu.descriptiontraitement,
+            couttraitement: traitementrecu.couttraitement,
           }));
           res.json(traitementanimal);
           console.log(traitementanimal);
