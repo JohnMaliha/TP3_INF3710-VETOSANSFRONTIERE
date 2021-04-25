@@ -1,6 +1,6 @@
-# INF3710_TutorielApp
+# INF3710_tp3
 
-Tutoriel du projet d'INF3710
+TP3 INF3710
 
 ## Avant de lancer le projet
 - Assurez-vous que Postgres roule sur vos machines 
@@ -19,9 +19,7 @@ Tutoriel du projet d'INF3710
 
 - Allez dans `/client` et faites `npm start`​
 
-## Demo Screenshots (remove for actual readme)
-
-![Main Page](./imgs/mainpage.PNG "Welcome Page")
-![Hotels Page](./imgs/hotels.PNG "Hotels Page")
-![Rooms Page](./imgs/rooms.PNG "Rooms Page")
-![Guests Page](./imgs/guests.PNG "Guests Page")
+## Si la  DB est connecté et rien ne s'affiche, basculer sur server (cd server) et faites : 
+- npm uninstall pg
+- npm uninstall pg-pool
+- npm install pg 
