@@ -131,7 +131,6 @@ export class DatabaseService {
   }
 
   public async deleteFacture(noproprio:number,animalno:number,employeno:number): Promise<pg.QueryResult> {
-    console.log('gang',noproprio,animalno,employeno);
     const client = await this.pool.connect();
     const res = await client.query(`DELETE FROM TP3VetoSansFrontieresDB.Facture WHERE noproprietaire = ${noproprio} AND noanimal = ${animalno} AND noemploye =${employeno} ;`);
     console.log(res); 
@@ -143,11 +142,10 @@ export class DatabaseService {
   // traitement : query qui retourne les traitements pr 1 animal particuler
   public async findTraitementAnimal(noanimal:number):Promise<pg.QueryResult> {
     const client = await this.pool.connect();
-    console.log(noanimal);
     const res = await client.query(`SELECT e.noexamen,e.nomveterinaire,traitement.descriptiontraitement,mt.notraitement 
     FROM TP3VetoSansFrontieresDB.Examen e,TP3VetoSansFrontieresDB.Traitement traitement,TP3VetoSansFrontieresDB.MultipleTraitement mt
     WHERE e.noanimal = ${noanimal} AND e.noexamen = mt.noexamen AND mt.notraitement = traitement.notraitement; `);
-
+    console.log(res);
     client.release();
     return res;
   }

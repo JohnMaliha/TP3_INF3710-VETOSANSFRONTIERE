@@ -101,9 +101,8 @@ export class CommunicationService {
   // traitement
 
   public getTraitementAnimal(noanimal:number): Observable<ListeTraitementAnimal[]> {
-    console.log(noanimal);
     return this.http
-      .get<ListeTraitementAnimal[]>(this.BASE_URL + "/ListeTraitementAnimal" + noanimal)
+      .get<ListeTraitementAnimal[]>(this.BASE_URL + "/listetraitementanimal/" + noanimal,{}) // "/listetraitementanimal/" + noanimal : body/// ,{} : params
       .pipe(catchError(this.handleError<ListeTraitementAnimal[]>("getTraitementAnimal")));
   }
 

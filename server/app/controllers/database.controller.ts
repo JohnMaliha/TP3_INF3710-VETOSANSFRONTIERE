@@ -262,8 +262,8 @@ export class DatabaseController {
 
     // traitement
 
-    router.get("/examen,traitement,traitementmultiple/:noanimal", (req: Request, res: Response, _: NextFunction) => {
-      const noanimal = req.body.noanimal;
+    router.get("/listetraitementanimal/:noanimal", (req: Request, res: Response, _: NextFunction) => {
+      const noanimal = req.params.noanimal;
       this.databaseService
         .findTraitementAnimal(noanimal)
         .then((result: pg.QueryResult) => {
