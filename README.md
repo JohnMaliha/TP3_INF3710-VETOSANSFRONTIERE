@@ -19,7 +19,7 @@ TP3 INF3710
 
 - Allez dans `/client` et faites `npm start`​
 
-## Si la  DB est connecté et rien ne s'affiche, basculer sur server (cd server) et faites : 
+## Si la  DB est connecté et rien ne s'affiche, basculer sur le server (avec cd server dans la console) et faites : 
 - npm uninstall pg
 - npm uninstall pg-pool
 - npm install pg 
