@@ -47,7 +47,6 @@ export class AnimalComponent implements OnInit {
     this.getProprietaire();
     this.getClinique();
     this.getAnimalListName();
-    // this.setupAnimalNames(this.animalTable);
   }
 
   public getAnimal():void{

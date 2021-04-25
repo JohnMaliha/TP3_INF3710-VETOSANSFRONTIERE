@@ -10,6 +10,10 @@
     color: var(--theme-purple);
     font-family: 'Roboto', sans-serif;
 }
+.page1 {
+    color: var(--theme-purple);
+    font-family: 'Varela Round', sans-serif;
+}
 
 .home {
     width: 100%;
