@@ -1,6 +1,5 @@
-# INF3710_tp3
+# Site Web : Vétérinaire sans frontière
 
-TP3 INF3710 
 
 ## Avant de lancer le projet
 - Assurez-vous que Postgres roule sur vos machines 
